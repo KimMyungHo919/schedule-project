@@ -4,14 +4,19 @@ import com.example.practicespring.dto.ScheduleResponseDto;
 import com.example.practicespring.entity.Schedule;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ScheduleRepository {
 
-    Schedule saveSchdule(Schedule schedule);
+    ScheduleResponseDto saveSchdule(Schedule schedule);
 
     List<ScheduleResponseDto> findAllSchedules();
 
-    Schedule findScheduleById(Long scheduleId);
+    Optional<Schedule> findScheduleById(Long scheduleId);
 
-    void deleteSchedule(Long scheduleId);
+    int updateSchedule(Long scheduleId, String name, String description);
+
+    int deleteSchedule(Long scheduleId);
+
+    Schedule findScheduleByIdOrElseThrow(Long scheduleId);
 }

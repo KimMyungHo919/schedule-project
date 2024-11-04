@@ -2,8 +2,8 @@ package com.example.practicespring.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
@@ -11,7 +11,6 @@ import java.util.Date;
 public class Schedule {
 
     // 모든 데이터들.
-    @Setter
     private Long scheduleId; // 데이터베이스에서 관리하는 고유식별자
 
     private String password;
@@ -22,6 +21,14 @@ public class Schedule {
 
     public Schedule(String password,String name,String description,Date createdAt,Date updatedAt) {
         this.password = password;
+        this.name = name;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Schedule(long scheduleId, String name, String description, Timestamp createdAt, Timestamp updatedAt) {
+        this.scheduleId = scheduleId;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;

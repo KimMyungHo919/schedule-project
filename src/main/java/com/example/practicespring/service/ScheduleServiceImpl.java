@@ -6,6 +6,7 @@ import com.example.practicespring.entity.Schedule;
 import com.example.practicespring.repository.ScheduleRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -24,9 +25,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         Schedule schedule = new Schedule(dto.getPassword(), dto.getName(), dto.getDescription(), dto.getCreatedAt(), dto.getUpdatedAt());
 
-        Schedule savedSchedule = scheduleRepository.saveSchdule(schedule);
-
-        return new ScheduleResponseDto(savedSchedule);
+        return scheduleRepository.saveSchdule(schedule);
     }
 
     @Override
@@ -38,39 +37,41 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleResponseDto findScheduleById(Long scheduleId) {
 
-        Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
+        Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(scheduleId);
 
-        if (schedule == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
-        }
+//        if (optionalSchedule.isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
+//        }
 
         return new ScheduleResponseDto(schedule);
     }
 
+    @Transactional
     @Override
     public ScheduleResponseDto scheduleUpdate(Long scheduleId, String name, String description) {
-        Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
 
-        if (schedule == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
-        }
         if (name == null || description == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "이름,내용을 찾을수 없습니다 : " + name + description);
         }
 
-        schedule.updateSchedule(name,description);
+        int updatedRow = scheduleRepository.updateSchedule(scheduleId, name, description);
+
+        if (updatedRow == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
+        }
+
+        Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(scheduleId);
 
         return new ScheduleResponseDto(schedule);
     }
 
     @Override
     public void deleteSchedule(Long scheduleId) {
-        Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
 
-        if (schedule == null) {
+        int deletedRow = scheduleRepository.deleteSchedule(scheduleId);
+
+        if (deletedRow == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
         }
-
-        scheduleRepository.deleteSchedule(scheduleId);
     }
 }

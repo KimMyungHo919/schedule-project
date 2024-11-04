@@ -1,11 +1,13 @@
 package com.example.practicespring.dto;
 
 import com.example.practicespring.entity.Schedule;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Date;
 
 @Getter
+@AllArgsConstructor
 public class ScheduleResponseDto {
 
     // 모든 데이터들.
