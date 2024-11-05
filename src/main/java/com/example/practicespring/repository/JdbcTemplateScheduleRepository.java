@@ -47,13 +47,13 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     // 전체조회
     @Override
     public List<ScheduleResponseDto> findAllSchedules() {
-        return jdbcTemplate.query("select * from schedule", scheduleRowMapper());
+        return jdbcTemplate.query("select * from schedule order by updatedAt desc", scheduleRowMapper());
     }
 
     // 단건조회
     @Override
     public Optional<Schedule> findScheduleById(Long scheduleId) {
-        List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapperV2(), scheduleId);
+        List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ? order by updatedAt desc", scheduleRowMapperV2(), scheduleId);
         return result.stream().findAny();
     }
 
