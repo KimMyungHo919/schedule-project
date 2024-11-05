@@ -120,7 +120,7 @@ DELETE /api/schedules/{scheduleId}
 
 
 # 일정 ERD
-![schedules](images/schedules.png)
+![schedules](images/schedule.png)
 
 
 
