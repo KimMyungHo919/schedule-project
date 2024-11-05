@@ -2,7 +2,6 @@ package com.example.practicespring.controller;
 
 import com.example.practicespring.dto.ScheduleRequestDto;
 import com.example.practicespring.dto.ScheduleResponseDto;
-import com.example.practicespring.entity.Schedule;
 import com.example.practicespring.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,17 +40,22 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.findScheduleById(scheduleId) , HttpStatus.OK);
     }
 
+    // 수정
     @PutMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateScheduleById(
             @PathVariable Long scheduleId,
             @RequestBody ScheduleRequestDto dto
     ) {
-        return new ResponseEntity<>(scheduleService.scheduleUpdate(scheduleId , dto.getName() , dto.getDescription()) , HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.scheduleUpdate(scheduleId, dto.getName(), dto.getDescription(), dto.getPassword()) , HttpStatus.OK);
     }
 
+    // 삭제
     @DeleteMapping("/{scheduleId}")
-    public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId) {
-        scheduleService.deleteSchedule(scheduleId);
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable Long scheduleId,
+            @RequestBody ScheduleRequestDto dto
+    ) {
+        scheduleService.deleteSchedule(scheduleId, dto.getPassword());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

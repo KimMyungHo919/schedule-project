@@ -48,16 +48,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Transactional
     @Override
-    public ScheduleResponseDto scheduleUpdate(Long scheduleId, String name, String description) {
+    public ScheduleResponseDto scheduleUpdate(Long scheduleId, String name, String description, String password) {
 
         if (name == null || description == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "이름,내용을 찾을수 없습니다 : " + name + description);
         }
 
-        int updatedRow = scheduleRepository.updateSchedule(scheduleId, name, description);
+        int updatedRow = scheduleRepository.updateSchedule(scheduleId, name, description, password);
 
         if (updatedRow == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디 혹은 비밀번호가 틀렸습니다 : " + scheduleId);
         }
 
         Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(scheduleId);
@@ -66,9 +66,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void deleteSchedule(Long scheduleId) {
+    public void deleteSchedule(Long scheduleId, String password) {
 
-        int deletedRow = scheduleRepository.deleteSchedule(scheduleId);
+        int deletedRow = scheduleRepository.deleteSchedule(scheduleId, password);
 
         if (deletedRow == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
