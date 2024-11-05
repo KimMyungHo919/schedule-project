@@ -128,11 +128,12 @@ DELETE /api/schedules/{scheduleId}
 ## CREATE
 ```sql
 -- schedules 테이블 생성
-CREATE TABLE schedules (
-    scheduleId Long          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE schedule (
+    scheduleId bigint          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     createdAt  DATETIME NOT NULL,
     updatedAt  DATETIME NOT NULL,
     name       VARCHAR(20)  NOT NULL,
+    password VARCHAR(20) NOT NULL,
     description TEXT
 );
 ```
@@ -140,17 +141,17 @@ CREATE TABLE schedules (
 ## INSERT
 ```sql
 -- Schedule 테이블에 데이터 삽입
-INSERT INTO schedules (scheduleId, createdAt, updatedAt, name, description)
+INSERT INTO schedule (scheduleId, createdAt, updatedAt, name, description)
 VALUES (1, now(), now(), '타이틀', '오늘의 일정은 이거다');
 ```
 
 ## SELECT
 ```sql
 -- Schedule 테이블 전체 조회
-SELECT * FROM schedules;
+SELECT * FROM schedule;
 
 -- 특정 schedule_id 로 일정 조회
-SELECT * FROM schedules
+SELECT * FROM schedule
 WHERE scheduleId = 1;
 ```
 
@@ -158,15 +159,15 @@ WHERE scheduleId = 1;
 ```sql
 
 -- 일정 수정
-UPDATE schedules
+UPDATE schedule
 SET name = '새로운 미팅', description = '업데이트된 일정'
-WHERE scheduleId = 1;
+WHERE scheduleId = 1 AND password = 123;
 ```
 
 ## DELETE
 ```sql
 
 -- 일정 삭제
-DELETE FROM schedules
-WHERE scheduleId = 1;
+DELETE FROM schedule
+WHERE scheduleId = 1 AND password = 123;
 ```
