@@ -23,6 +23,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
 
+        // 필수값 검증
+        if (dto.getName() == null || dto.getPassword() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "제목 혹은 패스워드를 확인해주세요.");
+        }
+
         Schedule schedule = new Schedule(dto.getPassword(), dto.getName(), dto.getDescription());
 
         return scheduleRepository.saveSchdule(schedule);
@@ -38,10 +43,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     public ScheduleResponseDto findScheduleById(Long scheduleId) {
 
         Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(scheduleId);
-
-//        if (optionalSchedule.isEmpty()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
-//        }
 
         return new ScheduleResponseDto(schedule);
     }
@@ -71,7 +72,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         int deletedRow = scheduleRepository.deleteSchedule(scheduleId, password);
 
         if (deletedRow == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND , "아이디를 찾을수 없습니다 : " + scheduleId);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "아이디 혹은 비밀번호를 확인해주세요." + scheduleId);
         }
     }
 }
