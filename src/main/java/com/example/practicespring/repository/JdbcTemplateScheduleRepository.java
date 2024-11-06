@@ -59,7 +59,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
     @Override
     public int updateSchedule(Long scheduleId, String name, String description, String password) {
-        return jdbcTemplate.update("update schedule set name = ?, description = ?, updatedAt = ? where scheduleId = ? and password = ?", name, description,new Date(), scheduleId, password);
+        return jdbcTemplate.update("update schedule set name = ?, description = ?, updatedAt = ? where scheduleId = ? and password = ?", name, description, new Date(), scheduleId, password);
     }
 
     // 삭제

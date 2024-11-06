@@ -11,6 +11,6 @@ public class ScheduleRequestDto {
     private String password;
     private String name;
     private String description;
-    private Date createdAt = new Date(); // 요청받을때 현재시간으로.
-    private Date updatedAt = new Date(); // 요청받을때 현재시간으로.
+    private Date createdAt;
+    private Date updatedAt;
 }

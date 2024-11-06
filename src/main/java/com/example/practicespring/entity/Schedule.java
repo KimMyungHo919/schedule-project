@@ -18,12 +18,12 @@ public class Schedule {
     private Date createdAt;
     private Date updatedAt;
 
-    public Schedule(String password,String name,String description,Date createdAt,Date updatedAt) {
+    public Schedule(String password,String name,String description) {
         this.password = password;
         this.name = name;
         this.description = description;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
 }
