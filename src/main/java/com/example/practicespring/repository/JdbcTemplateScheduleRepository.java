@@ -98,6 +98,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
             public Schedule mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Schedule(
                         rs.getLong("scheduleId"),
+                        rs.getString("password"),
                         rs.getString("name"),
                         rs.getString("description"),
                         rs.getTimestamp("createdAt"),

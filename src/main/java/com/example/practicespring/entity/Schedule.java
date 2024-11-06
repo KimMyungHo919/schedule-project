@@ -3,7 +3,6 @@ package com.example.practicespring.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
@@ -21,14 +20,6 @@ public class Schedule {
 
     public Schedule(String password,String name,String description,Date createdAt,Date updatedAt) {
         this.password = password;
-        this.name = name;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Schedule(long scheduleId, String name, String description, Timestamp createdAt, Timestamp updatedAt) {
-        this.scheduleId = scheduleId;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
