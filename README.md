@@ -3,11 +3,11 @@
 ## 일정관리 API
 | 기능     | 메서드    | URL                          | 요청형식 | 응답형식 | 상태코드      
 |--------|--------|------------------------------|------|------|-----------|
-일정등록   | POST   | /api/schedules               | json | json | 201: 정상등록 , 400: 잘못된요청
-전체일정조회 | GET    | /api/schedules               | x    | json | 200: 정상조회 , 404: 잘못된요청
-특정일정조회 | GET    | /api/schedules/{scheduleId}  | x    | json | 200: 정상조회 , 404: 잘못된요청
-일정수정   | PUT    | /api/schedules/{scheduleId} | json | json | 200: 정상수정 , 400: 잘못된요청
-일정삭제   | DELETE | /api/schedules/{scheduleId} | json | x    | 200: 정상삭제 , 400: 잘못된요청 
+일정등록   | POST   | /api/schedules               | json | json | 201: Created , 400: Bad Request
+전체일정조회 | GET    | /api/schedules               | x    | json | 200: Ok , 404: Not found
+특정일정조회 | GET    | /api/schedules/{scheduleId}  | x    | json | 200: Ok , 404: Not found
+일정수정   | PUT    | /api/schedules/{scheduleId} | json | json | 200: Ok , 404: Not found
+일정삭제   | DELETE | /api/schedules/{scheduleId} | json | x    | 200: Ok , 400: Bad Request
 
 
 ## 1. POST 요청 본문
