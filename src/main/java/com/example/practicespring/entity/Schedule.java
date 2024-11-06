@@ -35,9 +35,4 @@ public class Schedule {
         this.updatedAt = updatedAt;
     }
 
-    public void updateSchedule(String name, String description) {
-        this.name = name;
-        this.description = description;
-        this.updatedAt = new Date(); // 업데이트 시간을 현재시간으로.
-    }
 }
