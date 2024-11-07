@@ -6,6 +6,7 @@ import com.example.practicespring.entity.Schedule;
 import java.util.List;
 import java.util.Optional;
 
+// 레포지토리 인터페이스
 public interface ScheduleRepository {
 
     ScheduleResponseDto saveSchdule(Schedule schedule);

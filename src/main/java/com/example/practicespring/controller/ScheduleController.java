@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController // JSON 으로 데이터 주고받기.
+@RestController
 @RequestMapping("/api/schedules")
 public class ScheduleController {
 
-    // 스케줄서비스를 이용하기위해
+    // ScheduleService 의존성주입
     private final ScheduleService scheduleService;
-    // 스케줄서비스를 이용하기위해. 생성자를 통한 의존성주입?
     public ScheduleController(ScheduleService scheduleService) {
         this.scheduleService = scheduleService;
     }
 
+    // 데이터삽입
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
 
@@ -40,7 +40,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.findScheduleById(scheduleId) , HttpStatus.OK);
     }
 
-    // 수정
+    // 아이디를 통한 단건수정
     @PutMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateScheduleById(
             @PathVariable Long scheduleId,
@@ -49,7 +49,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.scheduleUpdate(scheduleId, dto.getName(), dto.getDescription(), dto.getPassword()) , HttpStatus.OK);
     }
 
-    // 삭제
+    // 아이디를 통한 단건삭제
     @DeleteMapping("/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(
             @PathVariable Long scheduleId,

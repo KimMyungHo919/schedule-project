@@ -4,9 +4,9 @@ import lombok.Getter;
 
 import java.util.Date;
 
-@Getter // 값을 쉽게 가져올수있게?
+// 요청데이터 Dto
+@Getter
 public class ScheduleRequestDto {
-    // 내가 요청받을 정보는 "이것" 입니다!
 
     private String password;
     private String name;

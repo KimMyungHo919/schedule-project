@@ -13,16 +13,15 @@ import java.util.List;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
-
+    // 레퍼지토리 의존성주입
     private final ScheduleRepository scheduleRepository;
-
     public ScheduleServiceImpl(ScheduleRepository scheduleRepository) {
         this.scheduleRepository = scheduleRepository;
     }
 
+    // 저장
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
-
         // 필수값 검증
         if (dto.getName() == null || dto.getPassword() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "제목 혹은 패스워드를 확인해주세요.");
@@ -33,12 +32,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.saveSchdule(schedule);
     }
 
+    // 전체조회
     @Override
     public List<ScheduleResponseDto> findAllSchedules() {
 
         return scheduleRepository.findAllSchedules();
     }
 
+    // 단건조회
     @Override
     public ScheduleResponseDto findScheduleById(Long scheduleId) {
 
@@ -47,6 +48,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return new ScheduleResponseDto(schedule);
     }
 
+    // 단건수정
     @Transactional
     @Override
     public ScheduleResponseDto scheduleUpdate(Long scheduleId, String name, String description, String password) {
@@ -66,6 +68,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return new ScheduleResponseDto(schedule);
     }
 
+    // 단건삭제
     @Override
     public void deleteSchedule(Long scheduleId, String password) {
 

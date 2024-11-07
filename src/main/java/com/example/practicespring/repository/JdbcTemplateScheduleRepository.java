@@ -57,12 +57,13 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         return result.stream().findAny();
     }
 
+    // 단건수정
     @Override
     public int updateSchedule(Long scheduleId, String name, String description, String password) {
         return jdbcTemplate.update("update schedule set name = ?, description = ?, updatedAt = ? where scheduleId = ? and password = ?", name, description, new Date(), scheduleId, password);
     }
 
-    // 삭제
+    // 단건삭제
     @Override
     public int deleteSchedule(Long scheduleId, String password) {
         return jdbcTemplate.update("delete from schedule where scheduleId = ? and password = ?", scheduleId, password);
@@ -73,9 +74,6 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         List<Schedule> result = jdbcTemplate.query("select * from schedule where scheduleId = ?", scheduleRowMapperV2() , scheduleId);
         return result.stream().findAny().orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "아이디를 찾을수 없습니다 " + scheduleId));
     }
-
-
-
 
     private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
         return new RowMapper<ScheduleResponseDto>() {

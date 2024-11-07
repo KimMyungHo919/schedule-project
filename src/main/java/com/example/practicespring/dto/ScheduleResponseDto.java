@@ -6,11 +6,11 @@ import lombok.Getter;
 
 import java.util.Date;
 
+// 응답데이터 Dto
 @Getter
 @AllArgsConstructor
 public class ScheduleResponseDto {
 
-    // 모든 데이터들.
     private Long scheduleId; // 데이터베이스에서 관리하는 고유식별자
 
     private String name;
@@ -18,6 +18,7 @@ public class ScheduleResponseDto {
     private Date createdAt;
     private Date updatedAt;
 
+    // 생성자
     public ScheduleResponseDto(Schedule schedule) {
         this.scheduleId = schedule.getScheduleId();
         this.name = schedule.getName();
